@@ -13,3 +13,4 @@ public class Q07_BoardDao{
 		return list;
 	}
 }
+
