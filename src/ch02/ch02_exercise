@@ -1,0 +1,127 @@
+1. 변수에 대해 잘못 설명한 것은 무엇입니까?
+
+➊ 변수는 하나의 값만 저장할 수 있다. 
+➋ 변수는 선언 시에 사용한 타입의 값만 저장할 수 있다. 
+➌ 변수는 변수가 선언된 중괄호 { } 안에서만 사용 가능하다. 
+➍ 변수는 초기값이 저장되지 않은 상태에서 읽을 수 있다.
+
+답 : 4
+-------------------------------------------------------------------------
+2. 변수 이름으로 사용할 수 없는 것을 모두 선택하세요.
+
+➊ modelName 	➋ class
+➌ 6hour		➍ $value
+➎ _age			➏ #name
+➐ int
+
+답 : 2, 3, 6, 7
+-------------------------------------------------------------------------
+3. 다음 표의 빈 칸에 자바의 기본 타입 8개를 적어보세요.
+
+타입,  크기 |    1 byte   |   2 byte  	  |    4byte   |    8byte   |	 
+  정수 타입 | ( byte )    | (short, char) |   (int)	   |   (long)	|
+  실수 타입 |  			  |			   	  |  (float)   |   (double) |
+  논리 타입 | ( boolean ) |           	  |			   |			|
+  
+ -------------------------------------------------------------------------
+  4. 다음 코드에서 타입, 변수 이름, 리터럴에 해당하는 것을 적어보세요.
+  
+  	int age;
+	age = 10;
+	double price = 3.14;
+	
+답 : 타입: (int),(double) 변수 이름: (age), (price) 리터럴: (10),(3.14)
+-------------------------------------------------------------------------
+5. 다음 자동 타입 변환에서 컴파일 에러가 발생하는 것을 선택하세요.
+
+		byte byteValue = 10; 
+		char charValue = 'A';
+		
+➊ int intValue = byteValue;
+➋ int intValue = charValue;
+➌ short shortValue = charValue;
+➍ double doubleValue = byteValue;
+
+답 : 3 -> short랑 char이랑 크기 같음.
+-------------------------------------------------------------------------
+6. 다음 강제 타입 변환에서 컴파일 에러가 발생하는 것을 선택하세요.
+
+		int intValue = 10;
+		char charValue = 'A'; 
+		double doubleValue = 5.7; 
+		String strValue = "A";
+		
+➊ double var = (double ) intValue; 
+➋ byte var = (byte ) intValue;
+➌ int var = (int ) doubleValue;
+➍ char var = (char ) strValue;
+
+답 : 4 
+-------------------------------------------------------------------------
+7. 변수를 잘못 초기화한 것은 무엇입니까?
+
+➊ int var1 = 10;
+➋ long var2 = 10000000000L;
+➌ char var3 =‘’;  //작은따옴표두개가붙어있음 
+➍ float var4 = 10;
+➎ String var5 = “abc\ndef”;
+➏ String var6 = """
+	abc 
+	def 
+	""";	
+
+답 : 3
+-------------------------------------------------------------------------
+8. 콘솔에 값을 입출력하는 방법에 대해 잘못 설명한 것을 선택하세요.
+
+➊ System.out.print(변수)는 변수값을 출력시키고 행을 바꾸지 않는다.
+➋ System.out.println(변수)는 변수값을 출력시키고 행을 바꾼다.
+➌ System.out.printf(“형식”, 변수)는 주어진 형식대로 변수값을 바꾼다. 
+➍ Scanner의 nextLine ( ) 메소드는 콘솔에 입력된 내용을 문자열로 읽는다.
+
+답 : 3 -> 주어진 형식대로 변수값 출력.
+-------------------------------------------------------------------------
+9. 연산식의 타입 변환 중에서 컴파일 에러가 발생하는 것을 선택하세요.
+
+		byte byteValue = 10; 
+		float floatValue = 2.5F;
+		double doubleValue = 2.5;
+
+➊ byte result = byteValue + byteValue; 
+➋ int result = 5 + byteValue;
+➌ float result = 5 + floatValue;
+➍ double result = 5 + doubleValue;
+
+답 : 1 -> int result = ~ 하던가, byte result = (byte ) ~
+-------------------------------------------------------------------------
+10. 문자열을 기본 타입으로 변환하는 코드로 틀린 것을 고르세요.
+
+		String str = "5";
+
+➊ byte var1 = Byte.parseByte (str );
+➋ int var2 = Int.parseInt (str );
+➌ float var3 = Float.parseFloat (str );
+➍ double var4 = Double.parseDouble (str );
+
+답 : 2 -> Integer.parseInt(str);
+-------------------------------------------------------------------------
+11. 다음 코드에서 컴파일 에러가 발생하는 라인을 모두 적어보세요.
+
+1	int v1 = 1; 
+2	System.out.println("v1: " + v1); 
+3	if(true) {
+4		int v2 = 2; 
+5		if(true) {
+6			int v3 = 2; 
+7			System.out.println("v1: " + v1); 
+8			System.out.println("v2: " + v2); 
+9			System.out.println("v3: " + v3);
+10		}
+11		System.out.println("v1: " + v1); 
+12		System.out.println("v2: " + v2); 
+13		System.out.println("v3: " + v3);
+14	  }
+15	  System.out.println("v1: " + v1); 
+16	  System.out.println("v2: " + v2);
+
+답 : 13, 16
