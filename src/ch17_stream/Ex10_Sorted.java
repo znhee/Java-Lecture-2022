@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class Q10_Sorted {
+public class Ex10_Sorted {
 
 	public static void main(String[] args) {
 		List<Ex10_Student> list = new ArrayList<>();
