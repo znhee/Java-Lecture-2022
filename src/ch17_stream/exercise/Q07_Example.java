@@ -16,6 +16,7 @@ public class Q07_Example {
 		List<Q07_Member> developers = list.stream()
 										  .filter(str -> str.getJob() == "개발자")
 										  .collect(Collectors.toList());
+
 		developers
 			.stream()
 			.forEach(str -> System.out.println(str.getName()));

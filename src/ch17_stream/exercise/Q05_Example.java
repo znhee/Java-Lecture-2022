@@ -10,8 +10,12 @@ public class Q05_Example {
 				"Lambda Expressions",
 				"Java8 supports lambda expressions"
 				);
+		boolean a = "This is a java book".toLowerCase().indexOf("java") >= 0;
+		System.out.println(a);
+		
 		list.stream()
-			.filter(s -> s.toLowerCase().contains("java"))
+			.filter(s -> s.toLowerCase().indexOf("java") >= 0)
+//			.filter(s -> s.toLowerCase().contains("java"))
 			.forEach(s -> System.out.println(s));
 				
 	}

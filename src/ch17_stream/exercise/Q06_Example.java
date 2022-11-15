@@ -12,7 +12,8 @@ public class Q06_Example {
 				new Q06_Member("김자바", 26)
 				);
 		double avg = list.stream()
-						 .mapToDouble(Q06_Member::getAge)
+//						 .mapToInt(m -> m.getAge())
+						 .mapToInt(Q06_Member::getAge)
 						 .average()
 						 .getAsDouble();
 		System.out.println("평균 나이: " + avg);
