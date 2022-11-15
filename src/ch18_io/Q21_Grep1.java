@@ -6,7 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Scanner;
 
-public class Q21_FindChar {
+public class Q21_Grep1 {
 
 	public static void main(String[] args) throws Exception {
 		Scanner scan = new Scanner(System.in);
