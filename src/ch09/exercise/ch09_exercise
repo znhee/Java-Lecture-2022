@@ -28,9 +28,21 @@
 4. 다음과 같이 Car 클래스 내부에 Tire와 Engine 클래스가 멤버로 선언되어 있습니다.
 	CarExample 클래스에서 Tire와 Engine 객체를 생성하는 코드를 작성해보세요.
 	
-답 : 
+답 : myCar.new Tire();		new Car.Engine();
+-------------------------------------------------------------------------
+5. Action 인터페이스는 다음과 같이 work ( ) 추상 메소드를 가지고 있습니다. 
+ActionExample 클래스의 main ( ) 메소드에서 Action의 익명 구현 객체를 만들어 
+실행 결과와 동일하게 나오도록 박스 안에 들어갈 코드를 작성해보세요.
+
+답 : Action action = new Action() {
+		@Override
+		public void work() {
+			System.out.println("복사를 합니다");
+			}
+		};			
 -------------------------------------------------------------------------
 7. 다음 Chatting 클래스는 컴파일 에러가 발생합니다. 원인을 설명해보세요.
 	
-답 : 
+답 : nickName은 final 특성을 갖기 때문에 startChat ( ) 메소드에서 nickName = chatId와 같이 값을 변경할 수 없다. 
+	따라서 String nickName = null;과 nickName = chatId;를 제거하고 대신 String nickName = chatId;를 넣어야 한다.
 -------------------------------------------------------------------------
