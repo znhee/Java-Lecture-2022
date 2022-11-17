@@ -99,4 +99,9 @@ SELECT `name`, debute FROM girlGroup
 
 SELECT `name`, debute FROM girlGroup
 	WHERE debute LIKE '2007%';
-    
+
+# 2009년도에 데뷔한 걸그룹의 히트송은? (그룹이름, 데뷔일, 히트송)
+SELECT r.`name`, r.debute, l.title FROM song AS l
+	JOIN girlGroup AS r
+	ON r.hitSongId = l.sid
+	WHERE debute LIKE '2009%';
