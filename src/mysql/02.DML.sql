@@ -56,3 +56,14 @@ INSERT INTO koreanCity
 DELETE FROM 테이블명
     WHERE 조건;
   */
+
+# ID 4083인 레코드 삭제
+DELETE FROM city WHERE ID=4083;
+
+# 4081 <= ID <= 4082 인 레코드 삭제
+DELETE FROM KoreanCity
+	WHERE ID >= 4081 AND ID <= 4082;
+
+# 인구수가 10만 미만인 도시를 삭제 
+DELETE FROM koreanCity
+	WHERE Population < 100000;
