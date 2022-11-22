@@ -1,4 +1,4 @@
-package mysql.customer;
+package mysql.bbs;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -12,23 +12,21 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import org.mindrot.jbcrypt.BCrypt;
 
-/**
- * DAO(Data Access Object)
- */
-public class DAO {
+public class UsersDao {
 	private String host;
 	private String user;
 	private String password;
 	private String database;
 	private String port;
 	
-	DAO () {
+	UsersDao() {
 		try {
 			InputStream is = new FileInputStream("/Users/zlnnnl/Workspace/mysql.properties");
 			Properties props = new Properties();
 			props.load(is);
-			is.close();		
+			is.close();
 			
 			host = props.getProperty("host");
 			user = props.getProperty("user");
@@ -40,137 +38,112 @@ public class DAO {
 		}
 	}
 	
-	
 	public Connection myGetConnection() {
 		Connection conn = null;
 		try {
-//			InputStream is = new FileInputStream("/Users/zlnnnl/Workspace/mysql.properties");
-//			Properties props = new Properties();
-//			props.load(is);
-//			is.close();
-//			
-//			String host = props.getProperty("host");
-//			String user = props.getProperty("user");
-//			String password = props.getProperty("password");
-//			String database = props.getProperty("database");
-//			String port = props.getProperty("port", "3306");
 			String connStr = "jdbc:mysql://" + host + ":" + port + "/" + database;
 			conn = DriverManager.getConnection(connStr, user, password);
-//			System.out.println(connStr);
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return conn;
 	}
 	
-	public void deleteCustomer(String uid) {
+	public void deleteUser(String uid) {
 		Connection conn = myGetConnection();
-		String sql = "UPDATE customer SET isDeleted=1 WHERE uid=?;";
+		String sql = "DELETE FROM users WHERE uid=?;";
 		try {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, uid);
 			
-			// Delete 대신에 isDeleted 필드를 1로 변경
 			pStmt.executeUpdate();
-			pStmt.close();
-			conn.close();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void updateCustomer(Customer c) {
-		Connection conn = myGetConnection();
-		String sql = "UPDATE customer SET name=?, regDate=?, isDeleted=? WHERE uid=?;";
-		try {
-			PreparedStatement pStmt = conn.prepareStatement(sql);
-			pStmt.setString(1, c.getName());
-			pStmt.setString(2, c.getRegDate().toString());
-			pStmt.setInt(3, c.getIsDeleted());
-			pStmt.setString(4, c.getUid());
-		
-			// Update 실행
-			pStmt.executeUpdate();
-			pStmt.close();
-			conn.close();
-			
+			pStmt.close(); conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		
 	}
 	
-	public Customer getCustomer(String uid) {
+	public void updateUser(Users u) {
 		Connection conn = myGetConnection();
-		String sql = "SELECT * FROM customer WHERE uid=?;";
-		Customer c = new Customer();
+		String sql = "UPDATE users SET pwd=?, uname=?, email=?, regDate=? WHERE uid=?;";
+		try {
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, u.getPwd());
+			pStmt.setString(2, u.getUname());
+			pStmt.setString(3, u.getEmail());
+			pStmt.setString(4, u.getRegDate().toString());
+			pStmt.setString(5, u.getUid());
+			
+			pStmt.executeUpdate();
+			pStmt.close(); conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public Users getUserInfo(String uid) {
+		Connection conn = myGetConnection();
+		String sql = "SELECT * FROM users WHERE uid=?;";
+		Users u = new Users();
 		try {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, uid);
 			
-			// Select 실행
 			ResultSet rs = pStmt.executeQuery();
 			while (rs.next()) {
-				c.setUid(rs.getString(1));
-				c.setName(rs.getString(2));
-				c.setRegDate(LocalDate.parse(rs.getString(3)));
-				c.setIsDeleted(rs.getInt(4));
+				u.setUid(rs.getString(1));
+				u.setPwd(rs.getString(2));
+				u.setUname(rs.getString(3));
+				u.setEmail(rs.getString(4));
+				u.setRegDate(LocalDate.parse(rs.getString(5)));
 			}
-			rs.close();
-			pStmt.close();
-			conn.close();
+			rs.close(); pStmt.close(); conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return c;
+		
+		return u;
 	}
 	
-	public List<Customer> getCustomers() {
+	public List<Users> listUsers() {
 		Connection conn = myGetConnection();
-		Statement stmt = null;
-		List<Customer> list = new ArrayList<>();
-		String sql = "SELECT * FROM customer WHERE isDeleted=0;";
+		String sql = "SELECT * FROM users ORDER BY regDate, uid;";
+		List<Users> list = new ArrayList<>();
 		try {
-			stmt = conn.createStatement();
-			
-			// Select 실행
+			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
-				Customer c = new Customer();
-				c.setUid(rs.getString(1));
-				c.setName(rs.getString(2));
-				c.setRegDate(LocalDate.parse(rs.getString(3)));
-				c.setIsDeleted(rs.getInt(4));
-				list.add(c);
+				Users u = new Users();
+				u.setUid(rs.getString(1));
+				u.setPwd(rs.getString(2));
+				u.setUname(rs.getString(3));
+				u.setEmail(rs.getString(4));
+				u.setRegDate(LocalDate.parse(rs.getString(5)));
+				list.add(u);
 			}
-			rs.close();
-			stmt.close();
-			conn.close();
+			rs.close(); stmt.close(); conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
 	}
-	public void insertCustomer(Customer c) {
+	
+	public void registerUser(Users u) {
 		Connection conn = myGetConnection();
-		String sql = "INSERT INTO customer(uid, name) VALUES(?,?);";
-		
+		String sql = "INSERT INTO users VALUES (?, ?, ?, ?, DEFAULT);";
 		try {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
-			pStmt.setString(1, c.getUid());
-			pStmt.setString(2, c.getName());
+			pStmt.setString(1, u.getUid());
+			String cryptedPwd = BCrypt.hashpw(u.getPwd(), BCrypt.gensalt());
+			pStmt.setString(2, cryptedPwd);
+			pStmt.setString(3, u.getUname());
+			pStmt.setString(4, u.getEmail());
 			
 			pStmt.executeUpdate();
 			pStmt.close();
 			conn.close();
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
-
 }
