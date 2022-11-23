@@ -23,7 +23,7 @@ public class DAO {
 	private String database;
 	private String port;
 	
-	DAO () {
+	public DAO () {
 		try {
 			InputStream is = new FileInputStream("/Users/zlnnnl/Workspace/mysql.properties");
 			Properties props = new Properties();
